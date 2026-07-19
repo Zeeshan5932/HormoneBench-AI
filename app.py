@@ -4,6 +4,7 @@ from html import escape
 from io import BytesIO
 from pathlib import Path
 from typing import Any, Iterable, Optional
+import textwrap
 
 import numpy as np
 import pandas as pd
@@ -208,26 +209,26 @@ def read_csv_bytes(
 # ============================================================
 
 @st.cache_resource(
-    show_spinner="Loading Gemini Research Copilot..."
+    show_spinner="Loading AI Research Copilot..."
 )
 def get_rag_service() -> Any:
     """
-    Initialize the Gemini RAG service only once.
+    Initialize RAGService only once.
 
-    Agent mode stays disabled for the Streamlit UI.
-    Python retrieves evidence and Gemini synthesizes
-    the final answer.
+    It will only run when user clicks
+    Retrieve Evidence.
     """
 
     if RAGService is None:
+
         raise RuntimeError(
+
             "RAGService could not be imported. "
+
             f"Error: {RAG_IMPORT_ERROR}"
         )
 
-    return RAGService(
-        use_agent=False
-    )
+    return RAGService()
 
 
 # ============================================================
@@ -1800,7 +1801,7 @@ def render_dataset_tab() -> None:
 
         cleaned_df,
 
-        use_container_width=True,
+        width="True",
 
         hide_index=True,
     )
@@ -1823,7 +1824,7 @@ def render_dataset_tab() -> None:
 
         mime="text/csv",
 
-        use_container_width=True,
+        width="True",
 
         key="download_unified_csv",
     )
@@ -1837,7 +1838,7 @@ def render_dataset_tab() -> None:
 
             processed_df.head(100),
 
-            use_container_width=True,
+            width="True",
 
             hide_index=True,
         )
@@ -1851,7 +1852,7 @@ def render_dataset_tab() -> None:
 
             raw_df.head(100),
 
-            use_container_width=True,
+            width="Trues",
 
             hide_index=True,
         )
@@ -2126,7 +2127,7 @@ def render_prediction_tab() -> None:
             else prediction_df
         ),
 
-            use_container_width=True,
+        width="True",
 
         hide_index=True,
     )
@@ -2149,7 +2150,7 @@ def render_prediction_tab() -> None:
 
         mime="text/csv",
 
-        use_container_width=True,
+        width="True",
 
         key="download_predictions",
     )
@@ -2324,7 +2325,7 @@ def render_explainability_tab() -> None:
 
         record_impacts,
 
-        use_container_width=True,
+        width="True",
     )
 
 
@@ -2571,7 +2572,7 @@ def render_report_tab() -> None:
 
         type="primary",
 
-        use_container_width=True,
+        width="True",
 
         key="download_report",
     )
@@ -2673,7 +2674,7 @@ with st.sidebar:
 
             "Reset Dataset Analysis",
 
-            use_container_width=True,
+            width="True",
         ):
 
             reset_analysis()
@@ -2949,180 +2950,299 @@ if menu == "Dashboard":
 # ABOUT PAGE
 # ============================================================
 
+# ============================================================
+# ABOUT US PAGE
+# ============================================================
+
 elif menu == "About Us":
 
-    st.title(
-        "About HormoneBench AI"
-    )
+    st.title("Meet Our Team")
 
+    # --------------------------------------------------------
+    # ABOUT PAGE CSS
+    # --------------------------------------------------------
 
     st.markdown(
-
         """
+        <style>
 
-HormoneBench AI is a research MVP that converts
+        .team-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 18px;
+            padding: 25px;
+            margin-bottom: 22px;
+            min-height: 390px;
+            text-align: center;
+            transition: 0.3s ease;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
 
-different women's hormonal-health datasets into
+        .team-card:hover {
+            transform: translateY(-5px);
+            border-color: #c44ba0;
+            box-shadow: 0 14px 30px rgba(196, 75, 160, 0.18);
+        }
 
-a unified benchmark workflow.
+        .team-image {
+            width: 135px;
+            height: 135px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #c44ba0;
+            margin-bottom: 16px;
+            background: white;
+        }
 
+        .team-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
 
-The platform demonstrates:
+        .team-role {
+            font-size: 16px;
+            color: #e775c2;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
 
+        .team-description {
+            font-size: 14px;
+            line-height: 1.7;
+            min-height: 105px;
+            color: #d7d7d7;
+            margin-bottom: 22px;
+        }
 
-- Dataset schema standardization
+        .linkedin-button {
+            display: inline-block;
+            background: #0a66c2;
+            color: white !important;
+            padding: 10px 22px;
+            border-radius: 8px;
+            text-decoration: none !important;
+            font-weight: 600;
+            transition: 0.3s ease;
+        }
 
-- Data cleaning and preprocessing
+        .linkedin-button:hover {
+            background: #084d93;
+            transform: scale(1.03);
+        }
 
-- Transparent baseline prediction
+        .linkedin-unavailable {
+            display: inline-block;
+            background: #555555;
+            color: white;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
 
-- Feature-level explainability
-
-- Evidence-grounded research retrieval
-
-- Downloadable reporting
-
-"""
+        </style>
+        """,
+        unsafe_allow_html=True,
     )
 
+    # --------------------------------------------------------
+    # TEAM DATA
+    # --------------------------------------------------------
 
-    st.divider()
+    team_members = [
 
+        {
+            "name": "Tayyab Nisar",
 
-    st.subheader(
-        "Project Workflow"
+            "role": "Chief Executive Officer — CEO",
+
+            "image": (
+                "https://api.dicebear.com/9.x/"
+                "initials/svg?seed=Tayyab%20Nisar"
+                "&backgroundColor=0a66c2"
+                "&fontFamily=Arial"
+            ),
+
+            "linkedin": (
+                "https://www.linkedin.com/"
+                "in/tayyabnisar"
+            ),
+
+            "description": (
+                "Tayyab leads the overall vision and strategic "
+                "direction of HormoneBench AI. He manages project "
+                "planning, team coordination, research priorities, "
+                "product decisions, and presentation of the platform."
+            ),
+        },
+
+        {
+            "name": "Zeeshan Younas",
+
+            "role": "Chief Technology Officer — CTO",
+
+            "image": (
+                "https://api.dicebear.com/9.x/"
+                "initials/svg?seed=Zeeshan%20Younas"
+                "&backgroundColor=6b2d5c"
+                "&fontFamily=Arial"
+            ),
+
+            # Zeeshan ka LinkedIn link milnay par
+            # empty string ki jagah link paste kar dein.
+            "linkedin": "",
+
+            "description": (
+                "Zeeshan manages the technical architecture of "
+                "HormoneBench AI. He is responsible for the Streamlit "
+                "application, backend services, Gemini RAG integration, "
+                "system reliability, and deployment infrastructure."
+            ),
+        },
+
+        {
+            "name": "Beenish Mehar",
+
+            "role": "Research and Data Lead",
+
+            "image": (
+                "https://api.dicebear.com/9.x/"
+                "initials/svg?seed=Beenish%20Mehar"
+                "&backgroundColor=b94b8c"
+                "&fontFamily=Arial"
+            ),
+
+            "linkedin": (
+                "https://www.linkedin.com/"
+                "in/beenish-m-32b64916b/"
+            ),
+
+            "description": (
+                "Beenish works on hormonal-health research, dataset "
+                "analysis, evidence collection, schema validation, "
+                "benchmark documentation, and evaluation of the "
+                "research results produced by the platform."
+            ),
+        },
+
+        {
+            "name": "Mahnoor M. Akram",
+
+            "role": "UI/UX and Documentation Lead",
+
+            "image": (
+                "https://api.dicebear.com/9.x/"
+                "initials/svg?seed=Mahnoor%20M%20Akram"
+                "&backgroundColor=8b3d72"
+                "&fontFamily=Arial"
+            ),
+
+            "linkedin": (
+                "https://www.linkedin.com/"
+                "in/mahnoor-m-akram-998a86283"
+            ),
+
+            "description": (
+                "Mahnoor designs the user experience and visual "
+                "presentation of HormoneBench AI. She works on the "
+                "Streamlit interface, project documentation, report "
+                "layout, demo preparation, and user-friendly research "
+                "communication."
+            ),
+        },
+    ]
+
+    # --------------------------------------------------------
+    # TEAM MEMBER CARD FUNCTION
+    # --------------------------------------------------------
+
+    def display_team_member(member: dict) -> None:
+
+        linkedin_url = member.get(
+            "linkedin",
+            "",
+        )
+
+        if linkedin_url:
+
+            linkedin_element = f"""
+            <a
+                class="linkedin-button"
+                href="{linkedin_url}"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                View LinkedIn Profile
+            </a>
+            """
+
+        else:
+
+            linkedin_element = """
+            <span class="linkedin-unavailable">
+                LinkedIn Profile Coming Soon
+            </span>
+            """
+
+        team_card_html = textwrap.dedent(
+            f"""
+            <div class="team-card">
+                <img
+                    class="team-image"
+                    src="{member['image']}"
+                    alt="{member['name']}"
+                >
+                <div class="team-name">{member['name']}</div>
+                <div class="team-role">{member['role']}</div>
+                <div class="team-description">{member['description']}</div>
+                {linkedin_element}
+            </div>
+            """
+        ).strip()
+
+        st.markdown(
+            team_card_html,
+            unsafe_allow_html=True,
+        )
+
+    # --------------------------------------------------------
+    # FIRST ROW
+    # --------------------------------------------------------
+
+    first_column, second_column = st.columns(
+        2,
+        gap="large",
     )
 
+    with first_column:
 
-    st.code(
+        display_team_member(
+            team_members[0]
+        )
 
-        """
+    with second_column:
 
-CSV Upload
+        display_team_member(
+            team_members[1]
+        )
 
-    ↓
+    # --------------------------------------------------------
+    # SECOND ROW
+    # --------------------------------------------------------
 
-Schema Mapping
-
-    ↓
-
-Cleaning
-
-    ↓
-
-Preprocessing
-
-    ↓
-
-Prediction
-
-    ↓
-
-Explainability
-
-    ↓
-
-Research Report
-
-""",
-
-        language="text",
+    third_column, fourth_column = st.columns(
+        2,
+        gap="large",
     )
 
+    with third_column:
 
-    st.subheader(
-        "Our Team"
-    )
+        display_team_member(
+            team_members[2]
+        )
 
+    with fourth_column:
 
-    column1, column2 = st.columns(
-        2
-    )
-
-
-    with column1:
-
-        with st.container(
-            border=True
-        ):
-
-            st.subheader(
-                "Member 1"
-            )
-
-            st.write(
-                "AI Architect"
-            )
-
-            st.caption(
-
-                "LLM and Research Copilot Pipelines"
-            )
-
-
-        with st.container(
-            border=True
-        ):
-
-            st.subheader(
-                "Member 2"
-            )
-
-            st.write(
-                "Lead Data Scientist"
-            )
-
-            st.caption(
-
-                "Biostatistics and Benchmark Design"
-            )
-
-
-    with column2:
-
-        with st.container(
-            border=True
-        ):
-
-            st.subheader(
-                "Member 3"
-            )
-
-            st.write(
-                "UX Researcher"
-            )
-
-            st.caption(
-
-                "Clinical Interface and Usability"
-            )
-
-
-        with st.container(
-            border=True
-        ):
-
-            st.subheader(
-                "Member 4"
-            )
-
-            st.write(
-                "Technical Lead"
-            )
-
-            st.caption(
-
-                "Infrastructure and Deployment"
-            )
-
-
-    st.warning(
-
-        "HormoneBench AI is a research and "
-
-        "educational MVP. It is not a medical "
-
-        "device and must not be used for diagnosis, "
-
-        "emergency decisions, or treatment."
-    )
+        display_team_member(
+            team_members[3]
+        )
