@@ -1,69 +1,60 @@
-/* =========================================
-   HormoneBench AI Custom Theme
-========================================= */
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap");
 
-.main {
-    background-color: #F8FAFC;
+:root {
+    --bg-soft: #f2f6f9;
+    --text-main: #0f172a !important;
+    --text-muted: #475569 !important;
+    --brand-primary: #0f766e;
+    --brand-secondary: #0284c7;
+    --border-soft: #dbe4eb;
 }
 
-.block-container {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+/* Force Light Mode Aesthetics even if system is Dark */
+[data-testid="stAppViewContainer"] {
+    background: radial-gradient(1400px 400px at 8% -8%, rgba(2, 132, 199, 0.08), transparent 60%),
+                linear-gradient(180deg, #f8fbfd 0%, #edf2f7 100%) !important;
+}
+
+/* Typography Fix */
+h1, h2, h3, h4, p, span, div {
+    font-family: "Manrope", sans-serif !important;
+    color: var(--text-main) !important;
 }
 
 h1 {
-    color: #0F172A;
-    font-weight: 700;
+    font-family: "Space Grotesk", sans-serif !important;
+    letter-spacing: -0.02em;
 }
 
-h2 {
-    color: #334155;
+/* Glassmorphism Containers */
+div[data-testid="stVerticalBlockBorderWrapper"] {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid rgba(219, 228, 235, 0.8) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05) !important;
+    backdrop-filter: blur(10px);
 }
 
-h3 {
-    color: #475569;
+/* Buttons with Gradient Glow */
+.stButton > button {
+    background: linear-gradient(135deg, #0f766e 0%, #0284c7 100%) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-weight: 700 !important;
+    padding: 0.6rem 1.2rem !important;
+    transition: 0.3s !important;
 }
 
-.stButton>button {
-
-    background-color: #2563EB;
-
-    color: white;
-
-    border-radius: 10px;
-
-    height: 45px;
-
-    width: 100%;
-
-    border: none;
-
-    font-size:16px;
-
-    font-weight:bold;
-
+.stButton > button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(15, 118, 110, 0.3) !important;
 }
 
-.stButton>button:hover{
-
-    background:#1D4ED8;
-
-}
-
-div[data-testid="metric-container"]{
-
-    background:white;
-
-    border-radius:12px;
-
-    padding:20px;
-
-    box-shadow:0px 0px 12px rgba(0,0,0,.08);
-
-}
-
-.stAlert{
-
-    border-radius:12px;
-
+/* Metric Cards - Minimalist */
+[data-testid="stMetric"] {
+    background: white !important;
+    padding: 1.5rem !important;
+    border-radius: 16px !important;
+    border: 1px solid #e2e8f0 !important;
 }
