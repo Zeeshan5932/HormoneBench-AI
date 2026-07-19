@@ -93,13 +93,24 @@ except Exception:
 
 BASE_DIR = Path(__file__).resolve().parent
 
-
 st.set_page_config(
     page_title=APP_TITLE,
     page_icon="🩺",
     layout="wide",
     initial_sidebar_state="expanded",
 )
+
+st.markdown("""
+<style>
+[data-testid="collapsedControl"] {
+    display: none !important;
+}
+
+button[kind="header"] {
+    display: none !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 
 # ============================================================
@@ -2949,56 +2960,54 @@ if menu == "Dashboard":
 # ABOUT PAGE
 # ============================================================
 
-elif menu == "About Us":
-
-    st.title(
-        "About HormoneBench AI"
-    )
+st.title(
+    "About HormoneBench AI"
+)
 
 
-    st.markdown(
+st.markdown(
+    """
 
-        """
+HormoneBench AI is an open AI research platform designed to
+standardize, analyze, and benchmark women's hormonal health
+datasets through a unified scientific validation pipeline.
 
-HormoneBench AI is a research MVP that converts
-
-different women's hormonal-health datasets into
-
-a unified benchmark workflow.
-
+The platform combines automated data processing, AI-powered
+prediction, explainability, evidence-grounded research retrieval,
+and report generation to support reproducible research and
+accelerate innovation in women's health AI.
 
 The platform demonstrates:
 
-
 - Dataset schema standardization
-
-- Data cleaning and preprocessing
-
-- Transparent baseline prediction
-
-- Feature-level explainability
-
-- Evidence-grounded research retrieval
-
-- Downloadable reporting
+- Automated data cleaning and preprocessing
+- Unified benchmark dataset generation
+- AI-powered risk prediction
+- Transparent feature-level explainability
+- Evidence-grounded AI Research Copilot (RAG)
+- Automated research report generation
+- Downloadable benchmark datasets and prediction results
 
 """
-    )
+)
 
 
-    st.divider()
+st.divider()
 
 
-    st.subheader(
-        "Project Workflow"
-    )
+st.subheader(
+    "Project Workflow"
+)
 
 
-    st.code(
-
-        """
+st.code(
+    """
 
 CSV Upload
+
+    ↓
+
+Dataset Validation
 
     ↓
 
@@ -3006,123 +3015,128 @@ Schema Mapping
 
     ↓
 
-Cleaning
+Data Cleaning
 
     ↓
 
-Preprocessing
+Feature Engineering & Preprocessing
 
     ↓
 
-Prediction
+AI Risk Prediction
 
     ↓
 
-Explainability
+Explainability Analysis
 
     ↓
 
-Research Report
+AI Research Copilot (RAG)
+
+    ↓
+
+Research Report Generation
+
+    ↓
+
+Download Results
 
 """,
-
-        language="text",
-    )
-
-
-    st.subheader(
-        "Our Team"
-    )
+    language="text",
+)
 
 
-    column1, column2 = st.columns(
-        2
-    )
+st.subheader(
+    "Our Team"
+)
 
 
-    with column1:
-
-        with st.container(
-            border=True
-        ):
-
-            st.subheader(
-                "Member 1"
-            )
-
-            st.write(
-                "AI Architect"
-            )
-
-            st.caption(
-
-                "LLM and Research Copilot Pipelines"
-            )
+column1, column2 = st.columns(
+    2
+)
 
 
-        with st.container(
-            border=True
-        ):
+with column1:
 
-            st.subheader(
-                "Member 2"
-            )
+    with st.container(
+        border=True
+    ):
 
-            st.write(
-                "Lead Data Scientist"
-            )
+        st.subheader(
+            "Member 1"
+        )
 
-            st.caption(
+        st.write(
+            "AI Architect"
+        )
 
-                "Biostatistics and Benchmark Design"
-            )
+        st.markdown("""
+**Tayyab Nisar**
 
+🔗 https://www.linkedin.com/in/tayyabnisar
 
-    with column2:
+*LLM and Research Copilot Pipelines*
+""")
 
-        with st.container(
-            border=True
-        ):
+    with st.container(
+        border=True
+    ):
 
-            st.subheader(
-                "Member 3"
-            )
+        st.subheader(
+            "Member 2"
+        )
 
-            st.write(
-                "UX Researcher"
-            )
+        st.write(
+            "Lead Data Scientist"
+        )
 
-            st.caption(
+        st.markdown("""
+**Beenish Mehar**
 
-                "Clinical Interface and Usability"
-            )
+🔗 https://www.linkedin.com/in/beenish-m-32b64916b?utm_source=share_via&utm_content=profile&utm_medium=member_android
 
-
-        with st.container(
-            border=True
-        ):
-
-            st.subheader(
-                "Member 4"
-            )
-
-            st.write(
-                "Technical Lead"
-            )
-
-            st.caption(
-
-                "Infrastructure and Deployment"
-            )
+*Biostatistics and Benchmark Design*
+""")
 
 
-    st.warning(
+with column2:
 
-        "HormoneBench AI is a research and "
+    with st.container(
+        border=True
+    ):
 
-        "educational MVP. It is not a medical "
+        st.subheader(
+            "Member 3"
+        )
 
-        "device and must not be used for diagnosis, "
+        st.write(
+            "UX Researcher"
+        )
 
-        "emergency decisions, or treatment."
-    )
+        st.markdown("""
+**Mahnoor Akram**
+
+🔗 https://www.linkedin.com/in/mahnoor-m-akram-998a86283
+
+*Clinical Interface and Usability*
+""")
+
+    with st.container(
+        border=True
+    ):
+
+        st.subheader(
+            "Member 4"
+        )
+
+        st.write(
+            "Technical Lead (CTO)"
+        )
+
+        st.markdown("""
+**Zeeshan**
+
+🔗 https://www.linkedin.com/in/zeeshan-younas-919a09253
+
+*Infrastructure and Deployment*
+""")
