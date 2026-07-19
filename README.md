@@ -1,170 +1,246 @@
-# 🩺 HormoneBench AI
+HormoneBench AI
 
-HormoneBench AI is a Streamlit-based MVP for benchmarking women's hormonal health datasets.
+Open AI Research Infrastructure for Women's Hormonal Health
 
-The project allows researchers to upload hormone datasets, clean them, convert them into a unified schema, generate a simple hormonal risk prediction, and download a professional PDF report.
+HormoneBench AI is an open-source research platform that standardizes, analyzes, and benchmarks women's hormonal health datasets through an integrated AI-powered scientific validation pipeline.
 
----
+The platform enables researchers, students, and healthcare innovators to transform heterogeneous datasets into a unified benchmark, generate transparent AI predictions, explain model outputs, retrieve evidence from scientific literature, and produce downloadable research reports.
 
-# Features
+Disclaimer: HormoneBench AI is a research and educational project. It is not a medical device and should not be used for diagnosis, treatment, or clinical decision-making.
 
-- CSV Dataset Upload
-- Automatic Data Cleaning
-- Unified Schema Mapping
-- Rule-Based Hormonal Risk Prediction
-- Interactive Dashboard
-- PDF Report Generation
-- Streamlit Web Interface
+Features
+Dataset Standardization
+Upload CSV datasets
+Automatic schema mapping
+Unified HormoneBench benchmark format
+Missing value handling
+Duplicate removal
+Data validation
+Data Processing Pipeline
+Automated data cleaning
+Feature preprocessing
+Feature engineering
+Standardized benchmark generation
+AI Risk Prediction
+AI-powered hormonal health risk assessment
+Record-level predictions
+Risk scoring
+Confidence estimation
+Important contributing factors
+Explainability
+Feature contribution analysis
+Global feature importance
+Record-level explanations
+Transparent prediction pipeline
+AI Research Copilot
 
----
+Powered by Retrieval-Augmented Generation (RAG).
 
-# Project Structure
+Supports evidence retrieval from:
 
-```
+Local knowledge base
+Scientific literature
+ArXiv
+Public web sources
+
+Provides evidence-grounded answers for women's hormonal health research.
+
+Research Reporting
+
+Automatically generates downloadable reports containing:
+
+Dataset summary
+Pipeline metadata
+Prediction statistics
+Risk distribution
+Prediction preview
+Research disclaimer
+Project Workflow
+CSV Upload
+      │
+      ▼
+Dataset Validation
+      │
+      ▼
+Schema Mapping
+      │
+      ▼
+Data Cleaning
+      │
+      ▼
+Feature Engineering
+      │
+      ▼
+Preprocessing
+      │
+      ▼
+AI Risk Prediction
+      │
+      ▼
+Explainability
+      │
+      ▼
+AI Research Copilot (RAG)
+      │
+      ▼
+Research Report Generation
+      │
+      ▼
+Download Results
+Tech Stack
+Frontend
+Streamlit
+Backend
+Python 3.11+
+Data Processing
+Pandas
+NumPy
+Machine Learning
+Scikit-learn
+AI & LLM
+Google Gemini
+LangChain
+Vector Retrieval
+FAISS
+Research Sources
+ArXiv
+DuckDuckGo Search
+Local Knowledge Base
+Reporting
+HTML Reports
+PDF Reports (when supported)
+Project Structure
 HormoneBench-AI/
 │
 ├── app.py
 ├── requirements.txt
-├── README.md
-│
 ├── assets/
-│   ├── logo.png
 │   └── style.css
 │
-├── data/
-│   ├── raw/
-│   ├── processed/
-│   └── reports/
-│
-├── models/
-│   └── prediction.py
-│
-├── pages/
-│   ├── 1_Dashboard.py
-│   ├── 2_Upload_Data.py
-│   ├── 3_Prediction.py
-│   ├── 4_Report.py
-│   └── 5_About.py
-│
 ├── services/
-│   ├── storage_service.py
 │   ├── cleaning_service.py
 │   ├── preprocessing_service.py
 │   ├── prediction_service.py
-│   └── report_service.py
+│   ├── rag_service.py
+│   ├── report_service.py
+│   └── __init__.py
 │
-└── utils/
-    ├── constants.py
-    ├── helpers.py
-    └── schema_mapper.py
-```
-
----
-
-# Installation
+├── utils/
+│   ├── constants.py
+│   ├── schema_mapper.py
+│   └── __init__.py
+│
+├── knowledge_base/
+├── models/
+├── data/
+└── README.md
+Installation
 
 Clone the repository
 
-```bash
-git clone https://github.com/your-username/HormoneBench-AI.git
-```
+git clone https://github.com/yourusername/HormoneBench-AI.git
 
-Go to project folder
-
-```bash
 cd HormoneBench-AI
-```
+
+Create a virtual environment
+
+python -m venv .venv
+
+Activate the environment
+
+Windows
+
+.venv\Scripts\activate
+
+Linux/macOS
+
+source .venv/bin/activate
 
 Install dependencies
 
-```bash
 pip install -r requirements.txt
-```
+Environment Variables
 
----
+Create a .env file.
 
-# Run Project
-
-```bash
+GOOGLE_API_KEY=YOUR_GEMINI_API_KEY
+Run Locally
 streamlit run app.py
-```
+Deployment
 
-Application will open at
+The application can be deployed on:
 
-```
-http://localhost:8501
-```
+Streamlit Community Cloud
+Railway
+Render
 
----
+For Streamlit Community Cloud:
 
-# Workflow
+Push the project to GitHub.
+Create a new app on Streamlit Community Cloud.
+Select the repository and app.py as the entry point.
+Add your GOOGLE_API_KEY under App Settings → Secrets.
+Deploy.
+Example Dataset
 
-```
-Upload CSV
+The application expects a CSV containing hormonal health features.
 
-↓
+Required standardized columns:
 
-Data Cleaning
+age
+sleep
+heart_rate
+temperature
+stress
+cycle_day
+bmi
 
-↓
+The platform automatically maps common alternative column names into the unified schema whenever possible.
 
-Schema Mapping
+Research Components
+Dataset Standardization
+Scientific Validation Pipeline
+AI Risk Prediction
+Explainable AI
+Retrieval-Augmented Generation (RAG)
+Automated Research Reporting
+Limitations
+Research prototype
+Not clinically validated
+Predictions should not be interpreted as medical advice
+Requires a Gemini API key for AI Research Copilot functionality
+Team
+Role	Member
+AI Architect	Tayyab Nisar
+Lead Data Scientist	Beenish Mehar
+UX Researcher	Mahnoor Akram
+Technical Lead (CTO)	Zeeshan
+License
 
-↓
+This project is intended for research, education, and non-commercial innovation unless otherwise specified.
 
-Prediction
+Citation
 
-↓
+If you use HormoneBench AI in your research or academic work, please cite the project appropriately.
 
-Generate Report
-```
+Contact
 
----
+Tayyab Nisar
 
-# Prediction Logic
+LinkedIn: https://www.linkedin.com/in/tayyabnisar
 
-Current MVP uses a simple rule-based prediction.
+Acknowledgements
 
-Example:
+Special thanks to the open-source community and the developers of:
 
-- Low Sleep
-- High Stress
-- High Temperature
-- High Heart Rate
+Streamlit
+Pandas
+NumPy
+Scikit-learn
+LangChain
+Google Gemini
+FAISS
+ArXiv
+DuckDuckGo Search
 
-↓
-
-High Hormonal Risk
-
-Future versions will replace this with Machine Learning models.
-
----
-
-# Technologies Used
-
-- Python
-- Streamlit
-- Pandas
-- NumPy
-- Scikit-Learn
-- ReportLab
-
----
-
-# Future Improvements
-
-- XGBoost Model
-- LightGBM
-- SHAP Explainability
-- Research Benchmark Leaderboard
-- Multi-Dataset Support
-- REST API
-- Docker Deployment
-
----
-
-# Author
-
-HormoneBench AI
-
-MVP for Women's Hormonal Health Benchmark Research
+for enabling accessible AI research and innovation in women's health.
