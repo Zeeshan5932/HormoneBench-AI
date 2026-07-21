@@ -1,6 +1,0 @@
-[server]
-enableStaticServing = true
-fileWatcherType = "none"
-
-[watcher]
-ignoreConditions = ['**/__pycache__/**', '**/data/**']
